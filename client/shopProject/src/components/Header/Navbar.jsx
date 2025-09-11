@@ -15,7 +15,7 @@ function Navbar() {
         <div className="flex justify-between items-center h-16 ">
           <div className="text-white font-bold text-2xl tracking-wide cursor-pointer">
             <a href="/home" className=" transition">
-              <DropDownMenu />
+              {/* <DropDownMenu /> */}
               <img src={Logo} className="w-20 h-20 text-white"></img>
             </a>
           </div>
@@ -32,6 +32,12 @@ function Navbar() {
             </a>
             <a href="/contact" className="hover:text-yellow-300 transition">
               Contact Us
+            </a>
+            <a
+              href="https://app.wonderchat.io/chatbot/cmfdoy7wc1pzh10ryem270fnl"
+              className=" hover:text-2xl"
+            >
+              🤖
             </a>
 
             <DropDown username={username} />
@@ -58,6 +64,12 @@ function Navbar() {
           </a>
           <a href="/product" className="block px-4 py-2 hover:bg-pink-400">
             Products
+          </a>
+          <a
+            href="https://app.wonderchat.io/chatbot/cmfdoy7wc1pzh10ryem270fnl"
+            className=" hover:text-2xl px-4"
+          >
+            🤖
           </a>
           <a
             href="/logout"

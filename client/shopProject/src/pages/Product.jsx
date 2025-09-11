@@ -69,6 +69,7 @@ function Product() {
       formData.append("ratings", data.ratings || 0);
       formData.append("description", data.description);
       formData.append("createBy", data.createBy);
+      formData.append("ingredients", data.ingredients);
 
       if (data.image && data.image[0]) {
         formData.append("image", data.image[0]);
@@ -118,14 +119,14 @@ function Product() {
         className="bg-white w-full shadow-lg rounded-lg p-6 space-y-6"
       >
         <div>
-          <label className="block font-semibold mb-1">Product Name</label>
+          <label className="block font-semibold mb-1">Receips Name</label>
           <InputsComp
             type="text"
             {...register("name", {
-              required: "Product name is required",
+              required: "Receips name is required",
               minLength: { value: 2, message: "Must be at least 2 characters" },
             })}
-            placeholder="Enter product name"
+            placeholder="Enter Receips name"
           />
           {errors.name && (
             <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
@@ -138,15 +139,50 @@ function Product() {
             {...register("category", { required: "Category is required" })}
             className="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-pink-400 outline-none"
           >
-            <option value="">Select category</option>
-            <option value="Fruit and vegetables">Fruit and vegetables</option>
-            <option value="Excessive Sugar">Excessive Sugar</option>
-            <option value="Vegetarian Dishes">Vegetarian Dishes</option>
-            <option value="Protein">Protein</option>
-            <option value="Fat">Fat</option>
-            <option value="Salads">Salads</option>
-            <option value="Soups">Soups</option>
-            <option value="Other">Other</option>
+            <option value="" className="font-bold">
+              Based on Course or Meal Type
+            </option>
+            <option value="Fruit and vegetables">Starters</option>
+            <option value="Fruit and vegetables">Soups & Salads</option>
+            <option value="Fruit and vegetables">Vegetable Curry</option>
+            <option value="Fruit and vegetables">Beef Steaky</option>
+            <option value="Fruit and vegetables">Chicken Biryani</option>
+            <option value="Fruit and vegetables">Fries</option>
+            <option value="Fruit and vegetables">Mashed Potatoes</option>
+            <option value="Fruit and vegetables">Steamed Vegetables</option>
+            <option value="Fruit and vegetables">Desserts</option>
+            <option value="Fruit and vegetables">Beverages</option>
+            <option value="Fruit and vegetables"> Drinks</option>
+            <option value="Fruit and vegetables">Vegetarian Recipes</option>
+            <option value="Excessive Sugar">Vegan Recipes</option>
+            <option value="Vegetarian Dishes">Gluten-Free Recipes</option>
+            <option value="Protein">Keto Recipes</option>
+            <option value="Fat">Burgers</option>
+            <option value="Salads" className="font-bold">
+              Pizzas
+            </option>
+            <option value="Soups" className="font-bold">
+              Sandwiches & Wraps
+            </option>
+            <option value="Other" className="font-bold">
+              Fried Items
+            </option>
+            <option value="Protein" className="font-bold">
+              Keto Recipes
+            </option>
+            <option value="Fat" className="font-bold">
+              Pasta & Noodles
+            </option>
+            <option value="Salads" className="font-bold">
+              {" "}
+              Fast Food Platters
+            </option>
+            <option value="Soups" className="font-bold">
+              Sandwiches & Wraps
+            </option>
+            <option value="Other" className="font-bold">
+              Fried Items
+            </option>
           </select>
           {errors.category && (
             <p className="text-red-500 text-sm mt-1">
@@ -184,6 +220,23 @@ function Product() {
             )}
           </div>
         </div>
+
+        <textarea
+          type="text"
+          {...register("ingredients", {
+            required: "Ingredients is required",
+            minLength: {
+              message: "Add your Ingredients in detail",
+            },
+          })}
+          placeholder="Write a Ingredients about the product"
+          className="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-pink-400 outline-none"
+        />
+        {errors.ingredients && (
+          <p className="text-red-500 text-sm mt-1">
+            {errors.ingredients.message}
+          </p>
+        )}
 
         <div>
           <label className="block font-semibold mb-1">Product Image</label>

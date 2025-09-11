@@ -46,7 +46,11 @@ function Shop() {
         {product && product.length > 0 ? (
           product?.map((item) => (
             <div className="w-full bg-white rounded-lg shadow  p-3 hover:shadow-lg transition duration-300 overflow-hidden cursor-pointer ">
-              <EditModal id={item._id}/>
+              <EditModal
+                id={item._id}
+                product={product}
+                setProduct={setProduct}
+              />
               <div
                 key={item._id}
                 onClick={() => handleClick(item._id)}
@@ -67,10 +71,14 @@ function Shop() {
 
                 <div className="p-3">
                   <h3 className="text-sm font-medium">{item.name}</h3>
+                  <h2 className="text-sm font-medium">
+                    {new Date(item.updatedAt).toLocaleString()}
+                  </h2>
 
                   <h3 className="text-sm font-medium">
                     {`P-Owner:${item.createdBy.fullname}`}
                   </h3>
+
                   <p className="text-xs text-gray-500">{`category-${item.category}`}</p>
                   <div className="flex items-center gap-2  py-2">
                     {item.oldPrice && (

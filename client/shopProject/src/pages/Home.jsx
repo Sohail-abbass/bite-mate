@@ -16,6 +16,14 @@ import CommentModal from "./CommentModal";
 import ShareModal from "./ShareModal";
 import EditModal from "./EditModal";
 import InfiniteScroll from "react-infinite-scroll-component";
+import img1 from "../assets/Images/frontImg01.jpg";
+import img2 from "../assets/Images/frontImg01.jpg";
+import img3 from "../assets/Images/frontImg02.webp";
+import img4 from "../assets/Images/frontImg03.webp";
+import img5 from "../assets/Images/frontImg04.jpg";
+import img6 from "../assets/Images/frontImg05.webp";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 function Home() {
   const [products, setProducts] = useState([]);
@@ -25,21 +33,31 @@ function Home() {
   const { username } = useContext(UserData);
   const api = import.meta.env.VITE_BASE_URL;
   const limit = 10;
+
+  // console.log("comment length", comment);
+
   const listedProduct = async (currenPage = 1) => {
     try {
       const response = await axios.get(
         `${api}/products?page=${currenPage}&limit=${limit}`
       );
 
-      console.log("response is-----", response);
-      setProducts((prev) => [...prev, ...response.data.products]);
+      console.log("response of Home-products is ------", response);
+      setProducts(() => [...response.data.products]);
       setTotalPages(response.data.totalPages);
     } catch (err) {
       console.log(err.message);
     }
   };
 
-  console.log("total page is --------", totalPages);
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      offset: 400,
+      easing: "ease-in-out",
+      once: true,
+    });
+  }, []);
 
   useEffect(() => {
     listedProduct(1);
@@ -110,6 +128,46 @@ function Home() {
           </div>
         </Carousel>
       </div>
+      <div className="lg:w-full max-md:hidden  absolute top-4 py-60 px-24">
+        <h1
+          data-aos="fade-down"
+          className="w-full text-white text-center font-bold text-7xl items-center"
+        >
+          WELCOME TO BITE-MATE
+        </h1>
+
+        <div
+          data-aos="fade-up"
+          className="lg:w-full max-md:hidden bg-white jusity-center items-center rounded-full p-10 overflow-hidden mt-10 mx-auto"
+        >
+          <p
+            data-aos="fade-down-right overflow-hidden"
+            className="w-full text-3xl justify-center  font-bold"
+          >
+            Bitmate brings you fresh, delicious, and affordable meals made with
+            care. We focus on quality, taste, and customer satisfaction,
+            delivering a delightful food experience every time. Bitmate brings
+            you fresh, delicious, and affordable meals made with care. We focus
+            on quality, taste, and customer satisfaction, delivering a
+            delightful food experience every time.
+          </p>
+        </div>
+
+        <div
+          data-aos="fade-up"
+          className="lg:w-full  max-md:hidden rounded-lg flex flex-row justify justify-evenly
+          py-20"
+        >
+          <img src={img1} className="w-80 h-80 rounded-full "></img>
+          <img src={img2} className="w-40 h-40 rounded-full "></img>
+          <img src={img3} className="w-40 h-40 rounded-full "></img>
+          <img src={img4} className="w-80 h-80 rounded-full "></img>
+          <img src={img5} className="w-40 h-40 rounded-full "></img>
+          <img src={img6} className="w-40 h-40 rounded-full "></img>
+          <img src={img5} className="w-80 h-80 rounded-full "></img>
+        </div>
+      </div>
+
       <div className="md:w-full w-full  bg-slate-300 overflow-hidden mt-5 p-4 z-10 ">
         <div className="flex animate-marquee whitespace-nowrap  md:text-2xl text-xl font-bold">
           <h1 className="md:py-2  px-10 text-yellow-400">
@@ -180,12 +238,27 @@ function Home() {
                       />
                     </div>
 
-                    <div className="w-full h-40 bg-white text-black p-2 px-3 flex flex-row justify-between">
+                    <div className="w-full h-44 bg-white text-black p-2 px-3 flex flex-row justify-between">
                       <div className="w-full h-full">
-                        <h2 className="text-sm font-semibold">{item.name}</h2>
-                        <h3 className="text-sm font-medium">{item.category}</h3>
+                        <div className="w-full flex flex-row justify-between  ">
+                          <h2 className="text-sm font-semibold">{item.name}</h2>
+                          <span className="text-black-600 font-bold">
+                            {`RS:${item.newPrice}`}
+                          </span>
+                        </div>
 
-                        <div className="flex flex-row gap-5 mb-4">
+                        <div className="w-full flex flex-row justify-between">
+                          <h3 className="text-sm font-medium">
+                            {item.category}
+                          </h3>
+                          <h2 className="text-sm font-medium ">
+                            {new Date(item.updatedAt).toLocaleString()}
+                          </h2>
+                        </div>
+
+                        <p>{`comment  ${item.comments.length}`}</p>
+
+                        <div className="flex flex-row gap-3 mb-4">
                           {isLiked ? (
                             <img
                               src={HeartIcons}
@@ -202,18 +275,11 @@ function Home() {
                           <CommentModal currentId={item._id} />
                           <ShareModal />
                         </div>
-
-                        <div className="w-ful h-5">
-                          <p className="text-black">
+                        <div className="w-full ">
+                          <p className="text-black ">
                             Like {`${item.likes.length}`}
                           </p>
                         </div>
-                      </div>
-
-                      <div>
-                        <span className="text-black-600 font-bold">
-                          {`RS:${item.newPrice}`}
-                        </span>
                       </div>
                     </div>
                   </div>

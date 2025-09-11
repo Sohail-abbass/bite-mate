@@ -60,7 +60,7 @@ function AddCart() {
                 <img
                   src={`${api}${selectProductId.image}`}
                   alt={selectProductId.name}
-                  className="w-full h-72 object-contain p-2 mt-10"
+                  className="w-full h-full object-contain p-2 mt-10"
                 />
 
                 <div className="w-full h-full p-3">
@@ -83,8 +83,19 @@ function AddCart() {
                     </span>
                   </div>
 
-                  <div className="md:w-full w-full md:h-full h-20 overflow-hidden text-sm text-gray-600">
-                    {selectProductId.description}
+                  <div className=" w-full ">
+                    <h2 className="font-bold text-3xl">Description</h2>
+                    <p className="text-black  text-2xl">
+                      {selectProductId.description}
+                    </p>
+                  </div>
+
+                  <div className="w-full">
+                    <p className="text-3xl font-bold text-black">Ingredients</p>
+                    <p className="text-black text-2xl">
+                      {" "}
+                      {selectProductId.ingredients}
+                    </p>
                   </div>
 
                   <div className="flex text-yellow-400 mt-3 text-xs">
