@@ -63,6 +63,8 @@ const productCreateItems = [
         sale,
         ratings,
         description,
+        ingredients,
+        time,
         createdBy,
       } = req.body;
 
@@ -78,7 +80,9 @@ const productCreateItems = [
         sale: sale === "true" || sale === "on",
         ratings: parseFloat(ratings) || 0,
         description,
+        ingredients,
         createdBy: req.user.id,
+        time: new Date().toLocaleString(),
       };
 
       const product = new Product(productData);
@@ -240,7 +244,7 @@ const striptPayment = async (req, res) => {
 
 const editPost = [
   upload.single("image"),
-  // Authentication,
+
   async (req, res) => {
     try {
       const { id } = req.params;
@@ -259,6 +263,7 @@ const editPost = [
         sale: req.body.sale === "true" || req.body.sale === true,
         ratings: req.body.ratings || existing.ratings,
         description: req.body.description || existing.description,
+        ingredients: req.body.ingredients || existing.ingredients,
         createdBy: req.body.createdBy || existing.createdBy,
         image: req.file ? `/upload/${req.file.filename}` : existing.image,
       };
@@ -278,6 +283,29 @@ const editPost = [
     }
   },
 ];
+
+const deletePost = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid product ID" });
+    }
+
+    const product = await Product.findByIdAndDelete(id);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    res.status(200).json({
+      deletePost: product,
+      message: "Product deleted successfully",
+    });
+  } catch (error) {
+    console.error("Delete Error:", error.message);
+    res.status(500).json({ message: "Server error" });
+  }
+};
 
 // const uploadImageOnly = [
 //   upload.single("image"),
@@ -310,6 +338,7 @@ module.exports = {
   commentApi,
   striptPayment,
   editPost,
+  deletePost,
   // uploadImageOnly,
   // upload,
 };

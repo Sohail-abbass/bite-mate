@@ -9,6 +9,7 @@ const {
   commentApi,
   editPost,
   uploadImageOnly,
+  deletePost,
 } = require("../controller/product-controller");
 
 const productRouter = express.Router();
@@ -21,6 +22,7 @@ productRouter.post("/:id/dislike", dislike);
 productRouter.post("/payment", striptPayment);
 productRouter.post("/:id/comment", commentApi);
 productRouter.put("/edit/:id", editPost);
+productRouter.delete("/delete/:id", deletePost);
 // productRouter.post("/upload", uploadImageOnly);
 
 module.exports = productRouter;

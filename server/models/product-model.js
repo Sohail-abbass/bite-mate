@@ -10,16 +10,6 @@ const productSchema = new mongoose.Schema(
     category: {
       type: String,
       required: true,
-      enum: [
-        "Fruit and vegetables",
-        "Excessive Sugar",
-        "Vegetarian Dishes",
-        "Protein",
-        "Fat",
-        "Salads",
-        "Soups",
-        "Other",
-      ],
     },
     oldPrice: {
       type: Number,
@@ -47,6 +37,14 @@ const productSchema = new mongoose.Schema(
     description: {
       type: String,
       required: true,
+    },
+    ingredients: {
+      type: String,
+      required: true,
+    },
+    time: {
+      type: String,
+      time: new Date().toLocaleString(),
     },
     likes: [{ type: String }],
     comments: [{ type: String }],

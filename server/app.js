@@ -15,6 +15,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/upload", express.static("upload"));
 app.use(cookieParser());
 
+console.log("LOCAL_ORIGIN:::::::::", process.env.LOCAL_ORIGIN);
+
 app.use(
   cors({
     origin: `${process.env.LOCAL_ORIGIN}`,
@@ -29,6 +31,10 @@ app.use(
     saveUninitialized: true,
   })
 );
+
+app.get("/", (res, req) => {
+  req.send("Hello World");
+});
 
 app.use("/products", productRouter);
 app.use("/", authRouter);
