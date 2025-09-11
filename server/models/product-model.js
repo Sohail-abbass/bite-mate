@@ -48,7 +48,12 @@ const productSchema = new mongoose.Schema(
     },
     likes: [{ type: String }],
     comments: [{ type: String }],
-    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+
+      ref: "User",
+    },
   },
 
   { timestamps: true }

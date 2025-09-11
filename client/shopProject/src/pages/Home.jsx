@@ -110,6 +110,16 @@ function Home() {
     }
   };
 
+  const handleCommentAdded = (productId, newComments) => {
+    setProducts((prev) =>
+      prev.map((product) =>
+        product._id === productId
+          ? { ...product, comments: newComments }
+          : product
+      )
+    );
+  };
+
   return (
     <div className=" w-full ">
       <div className=" relative w-full   ">
@@ -256,8 +266,6 @@ function Home() {
                           </h2>
                         </div>
 
-                        <p>{`comment  ${item.comments.length}`}</p>
-
                         <div className="flex flex-row gap-3 mb-4">
                           {isLiked ? (
                             <img
@@ -272,13 +280,18 @@ function Home() {
                             />
                           )}
 
-                          <CommentModal currentId={item._id} />
+                          <CommentModal
+                            currentId={item._id}
+                            onCommentAdded={handleCommentAdded}
+                          />
                           <ShareModal />
                         </div>
-                        <div className="w-full ">
+                        <div className="w-full flex flex-row gap-5">
                           <p className="text-black ">
+                            {" "}
                             Like {`${item.likes.length}`}
                           </p>
+                          <p> comment {`${item.comments.length}`}</p>
                         </div>
                       </div>
                     </div>
