@@ -4,7 +4,7 @@ const userModel = require("../models/register-model");
 module.exports = async function (req, res, next) {
   console.log("Cookies", req.cookies);
   if (!req.cookies?.token) {
-    res.redirect("/");
+    return res.status(401).json({ message: "Unauthorized" });
   }
   try {
     let decode = jwt.verify(req.cookies.token, process.env.JWT_KEY);

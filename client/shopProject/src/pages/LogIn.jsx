@@ -27,7 +27,8 @@ function Login() {
       const response = await axios.post(`${api}/login`, {
         email: data.email,
         password: data.password,
-      });
+      },  { withCredentials: true }
+    );
 
       messageshow.success("User login successfully ✅");
       console.log("The login data is --- ", response.data);

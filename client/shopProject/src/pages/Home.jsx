@@ -146,7 +146,7 @@ function Home() {
           WELCOME TO BITE-MATE
         </h1>
 
-        <div
+        {/* <div
           data-aos="fade-up"
           className="lg:w-full max-md:hidden bg-white jusity-center items-center rounded-full p-10 overflow-hidden mt-10 mx-auto"
         >
@@ -161,7 +161,7 @@ function Home() {
             on quality, taste, and customer satisfaction, delivering a
             delightful food experience every time.
           </p>
-        </div>
+        </div> */}
 
         <div
           data-aos="fade-up"
